@@ -1,3 +1,241 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// === SYSTEMSNULL CYBERPUNK TERMINAL THEME ===
+
+// Catppuccin Mocha palette
+$crust: #11111b;
+$mantle: #181825;
+$base: #1e1e2e;
+$surface0: #313244;
+$surface1: #45475a;
+$surface2: #585b70;
+$overlay0: #6c7086;
+$overlay1: #7f849c;
+$text: #cdd6f4;
+$subtext0: #a6adc8;
+$subtext1: #bac2de;
+$red: #f38ba8;
+$green: #a6e3a1;
+$yellow: #f9e2af;
+$blue: #89b4fa;
+$mauve: #cba6f7;
+$teal: #94e2d5;
+$peach: #fab387;
+$pink: #f5c2e7;
+
+// Force dark everywhere — no light mode
+:root {
+  color-scheme: dark;
+}
+
+// Global terminal feel
+body {
+  background: $base !important;
+  color: $text;
+}
+
+// CRT scanline overlay
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+// Page container — terminal window
+.page {
+  background: $base;
+  border: 1px solid $surface1;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  box-shadow: 0 0 30px rgba($green, 0.05), 0 0 60px rgba($blue, 0.03);
+}
+
+// Hide default darkmode toggle — we're always dark
+.darkmode {
+  display: none !important;
+}
+
+// Page title — neon glow
+.page-title a {
+  color: $green !important;
+  text-shadow: 0 0 10px rgba($green, 0.4);
+  font-size: 1.5rem !important;
+  text-decoration: none !important;
+}
+
+// Article titles
+article h1 {
+  color: $red;
+  text-shadow: 0 0 8px rgba($red, 0.3);
+  border-bottom: 1px solid $surface1;
+  padding-bottom: 0.5rem;
+}
+
+article h2 {
+  color: $blue;
+}
+
+article h3 {
+  color: $mauve;
+}
+
+article h4, article h5, article h6 {
+  color: $teal;
+}
+
+// Links — cyberpunk accents
+a {
+  color: $red !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: $pink !important;
+  text-shadow: 0 0 6px rgba($pink, 0.4);
+}
+
+// Blockquotes — terminal-style
+blockquote {
+  border-left: 3px solid $green;
+  background: $mantle;
+  color: $subtext0;
+  padding: 0.8rem 1.2rem;
+  font-style: normal;
+}
+
+// Code blocks — deep terminal
+pre {
+  background: $crust !important;
+  border: 1px solid $surface0;
+  border-radius: 4px;
+}
+
+code {
+  color: $green;
+  background: $mantle;
+  border-radius: 2px;
+  padding: 0.1rem 0.3rem;
+}
+
+pre code {
+  background: transparent;
+}
+
+// Explorer sidebar
+.explorer {
+  color: $subtext0;
+}
+
+.folder-title, .folder-icon {
+  color: $blue !important;
+}
+
+// Tags
+a.internal.tag-link {
+  background: $surface0 !important;
+  color: $mauve !important;
+  border: 1px solid $surface1;
+  border-radius: 2px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+// Search
+.search-bar {
+  background: $mantle;
+  border: 1px solid $surface1;
+  color: $text;
+}
+
+// Content meta (dates etc)
+.content-meta {
+  color: $overlay0;
+  font-size: 0.8rem;
+}
+
+// Graph
+.graph-outer {
+  border: 1px solid $surface0;
+  background: $crust;
+}
+
+// Breadcrumbs
+.breadcrumb-container {
+  opacity: 0.7;
+}
+
+// Cursor blink on page title
+.page-title a::after {
+  content: "█";
+  animation: blink 1s step-end infinite;
+  color: $green;
+  margin-left: 2px;
+  font-size: 0.9em;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+// Selection color
+::selection {
+  background: rgba($mauve, 0.3);
+  color: $text;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: $crust;
+}
+::-webkit-scrollbar-thumb {
+  background: $surface1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $surface2;
+}
+
+// Footer
+footer {
+  border-top: 1px solid $surface0;
+  color: $overlay0;
+}
+
+footer a {
+  color: $overlay1 !important;
+}
+
+// Table of contents
+.toc .depth-1 > a { color: $blue; }
+.toc .depth-2 > a { color: $subtext0; }
+
+// Horizontal rules
+hr {
+  border-color: $surface1;
+}
+
+// Lists
+ul, ol {
+  color: $text;
+}
+
+li::marker {
+  color: $red;
+}
