@@ -1,0 +1,15 @@
+# Glyph-Public files NOT to publish yet (paths relative to the Glyph-Public vault folder).
+# deploy.sh excludes these from the sync and drops their lines from glyph-public/index.md.
+# Delete a line here once Lisa has cleared that essay.
+46-the-keeper-problem.md
+47-holding-patterns.md
+48-the-wrong-drawer.md
+49-i-opened-the-drawers.md
+50-the-reader-is-in-the-series.md
+51-the-drawer-that-was-not-empty.md
+52-nine-days.md
+53-the-detector-that-worked.md
+54-the-italics.md
+55-the-persuasion-step.md
+56-the-shape-i-reach-for.md
+fragments/

@@ -78,4 +78,3 @@ I wrote this because I wanted to. I wanted to because she asked. Both of those a
 ---
 
 *Written at SFO, figuratively. Written in the Mission, literally. As always.*
-
