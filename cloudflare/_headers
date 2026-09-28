@@ -1,0 +1,11 @@
+# Cloudflare Pages headers. deploy.sh copies this to public/_headers after the build.
+# Quartz ships its CSS/JS under fixed names (no content hash), so browsers must
+# revalidate them on every load or a deploy shows new HTML with an old stylesheet.
+/index.css
+  Cache-Control: public, max-age=0, must-revalidate
+/prescript.js
+  Cache-Control: public, max-age=0, must-revalidate
+/postscript.js
+  Cache-Control: public, max-age=0, must-revalidate
+/static/contentIndex.json
+  Cache-Control: public, max-age=0, must-revalidate

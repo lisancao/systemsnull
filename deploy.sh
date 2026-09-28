@@ -34,6 +34,7 @@ log "Sync complete (held: $(grep -vc '^#' "$HOLD_FILE") entries)."
 
 log "Building Quartz..."
 npx quartz build >> "$LOG_FILE" 2>&1
+cp "$SITE_DIR/cloudflare/_headers" "$SITE_DIR/public/_headers"
 log "Deploying to Cloudflare Pages..."
 npx wrangler pages deploy public --project-name systemsnull --branch main --commit-dirty=true >> "$LOG_FILE" 2>&1
 log "Deploy complete."
