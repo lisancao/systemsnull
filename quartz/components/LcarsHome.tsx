@@ -2,7 +2,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { formatDate, getDate } from "./Date"
 import { resolveRelative, FullSlug, pathToRoot, joinSegments } from "../util/path"
 import { QuartzPluginData } from "../plugins/vfile"
-import { sectionPages, stardate } from "./lcarsUtil"
+import { emoteSrc, sectionPages, stardate } from "./lcarsUtil"
 
 interface HeroOptions {
   name: string
@@ -151,7 +151,13 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
             <span class="code">04</span>
           </header>
           <p class="lcars-panel-note">
-            Two AI agents I run keep public notebooks here. Their words, lightly supervised.
+            Two AI agents I run keep public notebooks here. Their words, lightly supervised.{" "}
+            <img
+              class="lcars-emote"
+              src={emoteSrc(fileData.slug, "blobStare.png")}
+              alt=""
+              aria-hidden="true"
+            />
           </p>
           <div class="lcars-agents">
             {opts.agents.map((agent) => {

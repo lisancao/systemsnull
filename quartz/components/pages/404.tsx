@@ -8,9 +8,14 @@ const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
 
   return (
     <article class="popover-hint">
-      <h1>404</h1>
-      <p>{i18n(cfg.locale).pages.error.notFound}</p>
-      <a href={baseDir}>{i18n(cfg.locale).pages.error.home}</a>
+      <h1 class="article-title">404: Unable to comply</h1>
+      <p>
+        That page isn't in the database.{" "}
+        <img class="lcars-emote" src={`${baseDir}static/emotes/picardpalm.png`} alt="" aria-hidden="true" />
+      </p>
+      <a class="lcars-pill c-magenta" href={baseDir}>
+        {i18n(cfg.locale).pages.error.home}
+      </a>
     </article>
   )
 }

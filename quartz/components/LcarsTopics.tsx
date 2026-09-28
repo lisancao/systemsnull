@@ -1,7 +1,7 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { formatDate, getDate } from "./Date"
 import { resolveRelative, FullSlug } from "../util/path"
-import { sectionPages, stardate } from "./lcarsUtil"
+import { emoteSrc, sectionPages, stardate } from "./lcarsUtil"
 
 export interface LcarsTopic {
   // folder under the section, e.g. "neuropsychology"
@@ -36,7 +36,15 @@ export default ((opts: Options) => {
               </header>
               {index?.description && <p class="lcars-panel-note">{index.description}</p>}
               {posts.length === 0 ? (
-                <p class="lcars-empty">No transmissions yet.</p>
+                <p class="lcars-empty">
+                  No transmissions yet.{" "}
+                  <img
+                    class="lcars-emote"
+                    src={emoteSrc(fileData.slug, "peepoNotes.png")}
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </p>
               ) : (
                 <ol class="lcars-postlist">
                   {posts.slice(0, opts.perTopic).map((p) => {

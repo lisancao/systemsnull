@@ -1,6 +1,12 @@
 import { GlobalConfiguration } from "../cfg"
 import { QuartzPluginData } from "../plugins/vfile"
 import { getDate } from "./Date"
+import { FullSlug, joinSegments, pathToRoot } from "../util/path"
+
+// Chrome emotes live in quartz/static/emotes (post emotes come from the vault instead)
+export function emoteSrc(slug: string | undefined, file: string): string {
+  return joinSegments(pathToRoot((slug ?? "index") as FullSlug), "static/emotes", file)
+}
 
 // Year plus day-of-year, e.g. 2026.271. Honest about being a date, still reads as a stardate.
 export function stardate(d: Date): string {
