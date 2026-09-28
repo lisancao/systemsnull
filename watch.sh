@@ -1,10 +1,11 @@
 #!/bin/bash
-# Watch Seven-Public and Glyph-Public for changes and auto-deploy
+# Watch Seven-Public, Glyph-Public and Blog-Public for changes and auto-deploy
 set -euo pipefail
 
 WATCH_DIRS=(
   "$HOME/Documents/systemsnull/Seven-Public"
   "$HOME/Documents/systemsnull/Glyph-Public"
+  "$HOME/Documents/systemsnull/Blog-Public"
 )
 
 for dir in "${WATCH_DIRS[@]}"; do

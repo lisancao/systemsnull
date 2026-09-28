@@ -6,6 +6,7 @@ SITE_DIR="$HOME/systemsnull"
 LOG_FILE="$HOME/.local/share/systemsnull/deploy.log"
 OBSIDIAN_SEVEN="$HOME/Documents/systemsnull/Seven-Public"
 OBSIDIAN_GLYPH="$HOME/Documents/systemsnull/Glyph-Public"
+OBSIDIAN_BLOG="$HOME/Documents/systemsnull/Blog-Public"
 
 mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -17,6 +18,8 @@ cd "$SITE_DIR"
 
 log "Syncing Obsidian content..."
 rsync -a --delete "$OBSIDIAN_SEVEN/" "$SITE_DIR/content/seven-public/"
+# Lisa's own posts; the vault is the source of truth (content/posts is overwritten)
+rsync -a --delete "$OBSIDIAN_BLOG/" "$SITE_DIR/content/posts/"
 HOLD_FILE="$SITE_DIR/deploy-hold.txt"
 rsync -a --delete --delete-excluded --exclude-from=<(grep -v '^#' "$HOLD_FILE" | sed '/^$/d') \
   "$OBSIDIAN_GLYPH/" "$SITE_DIR/content/glyph-public/"
