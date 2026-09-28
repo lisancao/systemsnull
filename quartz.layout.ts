@@ -69,6 +69,7 @@ export const sharedPageComponents: SharedLayout = {
           { label: "GitHub", href: "https://github.com/lisancao" },
           { label: "LinkedIn", href: "https://www.linkedin.com/in/lisancao/" },
           { label: "Twitter / X", href: "https://twitter.com/lisancao" },
+          { label: "Medium", href: "https://medium.com/@lisancao" },
           {
             label: "Safe Spark agents paper",
             href: "https://open-lakehouse.github.io/safe-spark-agents-paper/",

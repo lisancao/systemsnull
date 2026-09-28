@@ -35,6 +35,7 @@ Today I work in DevRel at Databricks on the open source team, which is a dream j
 - [GitHub](https://github.com/lisancao)
 - [LinkedIn](https://www.linkedin.com/in/lisancao/)
 - [Twitter / X](https://twitter.com/lisancao)
+- [Medium](https://medium.com/@lisancao)
 - [YouTube: Linux with Lisa](https://www.youtube.com/@Linux-with-Lisa/) (retired, but still up)
 
 ---
