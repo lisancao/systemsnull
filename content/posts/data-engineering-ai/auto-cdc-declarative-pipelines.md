@@ -1,4 +1,5 @@
 ---
+aliases: [posts/auto-cdc-declarative-pipelines]
 title: "From Event Stream to Live Truth: AUTO CDC in Spark Declarative Pipelines"
 date: 2026-09-28
 description: "Your lakehouse is full of facts: orders placed, rows changed, sensors pinged. But the questions people actually ask are about the present: what's the status of this order right now? AUTO CDC, newly donated to Apache Spark, turns a stream of changes into an always-current table with four declarative"

@@ -1330,3 +1330,27 @@ body[data-slug="talks"] article h3 {
   border: 0;
   height: min(900px, 80vh);
 }
+
+// ---------- Writing topics ----------
+
+// the grouped topic panels replace Quartz's flat folder listing on /posts
+body[data-slug="posts/index"] .page-listing {
+  display: none;
+}
+
+.lcars-topics {
+  margin-top: 1rem;
+
+  .lcars-panel-head a {
+    color: inherit !important;
+    background: none !important;
+    text-decoration: none;
+  }
+}
+
+.lcars-empty {
+  font-family: var(--headerFont);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+}

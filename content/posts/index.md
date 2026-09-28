@@ -2,4 +2,4 @@
 title: Writing
 ---
 
-Long-form posts on Apache Spark and the open lakehouse, building AI systems that hold up in production, and AI's effect on society.
+Writing on data engineering and AI, neuropsychology, and the human side of technology.

@@ -1,4 +1,5 @@
 ---
+aliases: [posts/pyspark-udf-showdown]
 title: "The PySpark UDF Showdown: pandas_udf vs. mapInPandas vs. mapInArrow vs. arrow_udf"
 date: 2026-09-28
 description: "Four APIs, one question: what actually happens to your data when it crosses the JVM-Python boundary? This post puts each approach side by side -- same problem, same data, different code paths -- so you can see exactly where the time goes and pick the right tool."

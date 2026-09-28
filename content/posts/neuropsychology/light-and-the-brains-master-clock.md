@@ -1,4 +1,5 @@
 ---
+aliases: [posts/light-and-the-brains-master-clock]
 title: "Light Affects Our Brain's Master Clock: How It Works and What You Can Do to Sleep on Time"
 date: 2026-09-28
 description: "How light reaches the brain's master clock, why some of us are night owls, and how to use the phase response curve to beat jet lag. A neuroscience explainer I first wrote as a handout in 2020."

@@ -4,16 +4,30 @@ import { resolveRelative, FullSlug } from "../util/path"
 import readingTime from "reading-time"
 import { stardate } from "./lcarsUtil"
 
-// Post metadata as an LCARS readout: date, stardate, reading time, tags.
-export default (() => {
+interface Options {
+  // topic folders, e.g. { prefix: "posts/neuropsychology", label: "NeuroPsychology", color: "violet" }
+  topics?: { prefix: string; label: string; color: string }[]
+}
+
+// Post metadata as an LCARS readout: topic, date, stardate, reading time, tags.
+export default ((opts?: Options) => {
   const LcarsMeta: QuartzComponent = ({ cfg, fileData }: QuartzComponentProps) => {
     if (!fileData.text) return null
     const date = fileData.dates ? getDate(cfg, fileData) : undefined
     const minutes = Math.max(1, Math.ceil(readingTime(fileData.text).minutes))
     const tags = (fileData.frontmatter?.tags ?? []) as string[]
+    const topic = opts?.topics?.find((t) => (fileData.slug ?? "").startsWith(t.prefix + "/"))
 
     return (
       <div class="lcars-meta">
+        {topic && (
+          <a
+            class={`lcars-pill c-${topic.color}`}
+            href={resolveRelative(fileData.slug!, `${topic.prefix}/index` as FullSlug)}
+          >
+            {topic.label}
+          </a>
+        )}
         {date && (
           <span class="lcars-pill c-ice">
             <time datetime={date.toISOString()}>{formatDate(date, cfg.locale)}</time>
@@ -40,4 +54,4 @@ export default (() => {
   }
 
   return LcarsMeta
-}) satisfies QuartzComponentConstructor
+}) satisfies QuartzComponentConstructor<Options | undefined>

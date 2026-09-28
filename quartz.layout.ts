@@ -1,6 +1,13 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
+// Writing topics: one folder each under content/posts
+const writingTopics = [
+  { path: "data-engineering-ai", label: "Data Engineering / AI", color: "cyan" },
+  { path: "neuropsychology", label: "NeuroPsychology", color: "violet" },
+  { path: "human-things", label: "Human Things", color: "orchid" },
+]
+
 // LCARS chrome. The left sidebar is `display: contents` (see custom.scss), so the
 // frame's elbow, top bar and rail, plus search, each get their own grid area.
 const lcarsLeft = [
@@ -44,6 +51,10 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
+    Component.ConditionalRender({
+      component: Component.LcarsTopics({ section: "posts", topics: writingTopics, perTopic: 5 }),
+      condition: (page) => page.fileData.slug === "posts/index",
+    }),
     onlyIndex(
       Component.LcarsHomeFeed({
         postsPath: "posts",
@@ -105,7 +116,9 @@ export const defaultContentPageLayout: PageLayout = {
     notIndex(Component.ArticleTitle()),
     // dates and reading time only mean something on posts and agent logs
     Component.ConditionalRender({
-      component: Component.LcarsMeta(),
+      component: Component.LcarsMeta({
+        topics: writingTopics.map((t) => ({ prefix: `posts/${t.path}`, label: t.label, color: t.color })),
+      }),
       condition: (page) =>
         ["posts/", "seven-public/", "glyph-public/"].some((p) =>
           (page.fileData.slug ?? "").startsWith(p),
