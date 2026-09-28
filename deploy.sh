@@ -33,6 +33,28 @@ keep = [l for l in lines if not any(f"({h})" in l or f"({h}" in l for h in held)
 open(idx, "w").writelines(keep)
 print(f"held back {len(lines) - len(keep)} index entries")
 PY
+# Emotes: the full set lives privately in the vault; publish only the ones pages actually embed
+python3 - "$HOME/Documents/systemsnull/emotes" "$SITE_DIR/content" <<'PY'
+import os, re, shutil, sys
+src, content = sys.argv[1], sys.argv[2]
+out = os.path.join(content, "emotes")
+shutil.rmtree(out, ignore_errors=True)
+available = {f for f in os.listdir(src) if os.path.isfile(os.path.join(src, f))}
+used = set()
+for root, _, files in os.walk(content):
+    for f in files:
+        if f.endswith(".md"):
+            text = open(os.path.join(root, f), encoding="utf-8").read()
+            for name in re.findall(r"!\[\[([^\]|#]+)", text):
+                name = os.path.basename(name.strip())
+                if name in available:
+                    used.add(name)
+if used:
+    os.makedirs(out)
+    for name in used:
+        shutil.copy2(os.path.join(src, name), out)
+print(f"emotes published: {len(used)}")
+PY
 log "Sync complete (held: $(grep -vc '^#' "$HOLD_FILE") entries)."
 
 log "Building Quartz..."

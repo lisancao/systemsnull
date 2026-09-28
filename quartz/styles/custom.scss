@@ -1354,3 +1354,17 @@ body[data-slug="posts/index"] .page-listing {
   letter-spacing: 0.1em;
   color: var(--gray);
 }
+
+// ---------- Emotes ----------
+// ![[name.gif|24]] in Obsidian; on the site any image from /emotes sits inline at text height
+
+article img[src*="emotes/"] {
+  display: inline-block;
+  height: 1.6em;
+  width: auto;
+  margin: 0 0.1em;
+  vertical-align: -0.35em;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
