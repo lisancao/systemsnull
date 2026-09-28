@@ -1,5 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import { emoteSrc } from "./lcarsUtil"
 
 interface Options {
   owner: string
@@ -8,7 +7,7 @@ interface Options {
 }
 
 export default ((opts: Options) => {
-  const LcarsFooter: QuartzComponent = ({ fileData }: QuartzComponentProps) => (
+  const LcarsFooter: QuartzComponent = (_props: QuartzComponentProps) => (
     <footer class="lcars-footer">
       <div class="lcars-bar" aria-hidden="true">
         <span class="seg seg-sm c-violet"></span>
@@ -17,13 +16,7 @@ export default ((opts: Options) => {
       </div>
       <div class="lcars-footer-row">
         <span>
-          &copy; {new Date().getFullYear()} {opts.owner}{" "}
-          <img
-            class="lcars-emote"
-            src={emoteSrc(fileData.slug, "janewayCoffee.png")}
-            alt=""
-            aria-hidden="true"
-          />
+          &copy; {new Date().getFullYear()} {opts.owner}
         </span>
         <ul>
           {Object.entries(opts.links).map(([text, link]) => (
