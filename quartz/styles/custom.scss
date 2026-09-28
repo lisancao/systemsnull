@@ -1324,3 +1324,9 @@ body[data-slug="talks"] article h3 {
     margin: 1rem 0 0;
   }
 }
+
+.lcars-pdf iframe {
+  background: #fff;
+  border: 0;
+  height: min(900px, 80vh);
+}
