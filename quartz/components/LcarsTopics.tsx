@@ -16,7 +16,7 @@ interface Options {
   perTopic: number
 }
 
-// The Writing page: one LCARS panel per topic folder, newest posts first.
+// The Blog page: one LCARS panel per topic folder, newest posts first.
 // Blurbs come from each topic folder's index.md so they stay editable in Obsidian.
 export default ((opts: Options) => {
   const LcarsTopics: QuartzComponent = ({ cfg, fileData, allFiles }: QuartzComponentProps) => {
@@ -77,3 +77,40 @@ export default ((opts: Options) => {
 
   return LcarsTopics
 }) satisfies QuartzComponentConstructor<Options>
+
+// A single topic page (posts/<topic>/index): every post in that folder, same list style.
+export const LcarsTopicPosts = (() => {
+  const LcarsTopicPosts: QuartzComponent = ({ cfg, fileData, allFiles }: QuartzComponentProps) => {
+    const folder = (fileData.slug ?? "").replace(/\/index$/, "")
+    const posts = sectionPages(cfg, allFiles, folder)
+    return (
+      <div class="lcars-feed lcars-topics">
+        {posts.length === 0 ? (
+          <p class="lcars-empty">
+            No transmissions yet.{" "}
+            <img class="lcars-emote" src={emoteSrc(fileData.slug, "peepoNotes.png")} alt="" aria-hidden="true" />
+          </p>
+        ) : (
+          <ol class="lcars-postlist">
+            {posts.map((p) => {
+              const d = getDate(cfg, p)
+              return (
+                <li>
+                  <span class="lcars-postlist-date">
+                    {d ? formatDate(d, cfg.locale) : ""}
+                    {d && <span class="sd">SD {stardate(d)}</span>}
+                  </span>
+                  <a class="internal" href={resolveRelative(fileData.slug!, p.slug!)}>
+                    {p.frontmatter?.title}
+                  </a>
+                </li>
+              )
+            })}
+          </ol>
+        )}
+      </div>
+    )
+  }
+  return LcarsTopicPosts
+}) satisfies QuartzComponentConstructor
+

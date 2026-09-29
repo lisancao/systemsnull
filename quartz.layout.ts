@@ -1,7 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
-// Writing topics: one folder each under content/posts
+// Blog topics: one folder each under content/posts (vault: Blog-Public/<topic>)
 const writingTopics = [
   { path: "data-engineering-ai", label: "Data Engineering / AI", color: "cyan" },
   { path: "neuropsychology", label: "NeuroPsychology", color: "violet" },
@@ -16,7 +16,17 @@ const lcarsLeft = [
     subtitle: "Open Source · Data Engineering · AI and society",
     nav: [
       { label: "Home", path: "", code: "01", color: "magenta" },
-      { label: "Writing", path: "posts", code: "02", color: "ice" },
+      {
+        label: "Blog",
+        path: "posts",
+        code: "02",
+        color: "ice",
+        children: writingTopics.map((t) => ({
+          label: t.label,
+          path: `posts/${t.path}`,
+          color: t.color,
+        })),
+      },
       { label: "Podcast", path: "podcast", code: "03", color: "cyan" },
       { label: "Talks", path: "talks", code: "04", color: "violet" },
       { label: "Projects", path: "projects", code: "05", color: "azure" },
@@ -54,6 +64,10 @@ export const sharedPageComponents: SharedLayout = {
     Component.ConditionalRender({
       component: Component.LcarsTopics({ section: "posts", topics: writingTopics, perTopic: 5 }),
       condition: (page) => page.fileData.slug === "posts/index",
+    }),
+    Component.ConditionalRender({
+      component: Component.LcarsTopicPosts(),
+      condition: (page) => writingTopics.some((t) => page.fileData.slug === `posts/${t.path}/index`),
     }),
     onlyIndex(
       Component.LcarsHomeFeed({

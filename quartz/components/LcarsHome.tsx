@@ -91,7 +91,7 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
         {latest.length > 0 && (
           <section class="lcars-panel">
             <header class="lcars-panel-head c-ice">
-              <span>Latest writing</span>
+              <span>Latest posts</span>
               <span class="code">02</span>
             </header>
             <ol class="lcars-postlist">
@@ -114,7 +114,7 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
               class="lcars-pill c-ice lcars-more"
               href={resolveRelative(fileData.slug!, `${opts.postsPath}/index` as FullSlug)}
             >
-              All writing
+              All posts
             </a>
           </section>
         )}

@@ -1334,6 +1334,7 @@ body[data-slug="talks"] article h3 {
 // ---------- Writing topics ----------
 
 // the grouped topic panels replace Quartz's flat folder listing on /posts
+body[data-slug^="posts/"][data-slug$="/index"] .page-listing,
 body[data-slug="posts/index"] .page-listing {
   display: none;
 }
@@ -1378,4 +1379,51 @@ article img[src*="emotes/"] {
   border: 0;
   border-radius: 0;
   box-shadow: none;
+}
+
+// ---------- Rail sub-buttons (Blog topics) ----------
+// Thinner, indented blocks under their parent, in each topic's colour.
+
+.lcars-rail-sub {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 34px;
+  margin-left: 22px;
+  padding: 0 12px 5px;
+  box-sizing: border-box;
+  background: var(--c);
+  color: var(--sw-ink) !important;
+  font-family: var(--headerFont);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0.85;
+  box-shadow: var(--glow-box);
+  transition:
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: var(--glow-box-hot);
+  }
+
+  &.active {
+    opacity: 1;
+    box-shadow:
+      var(--glow-box-hot),
+      inset -10px 0 0 var(--sw-ink);
+    padding-right: 20px;
+    font-weight: 700;
+  }
+}
+
+@media all and ($mobile) {
+  .lcars-rail-sub {
+    display: none; // the Blog page lists the topics on phones
+  }
 }

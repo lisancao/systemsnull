@@ -10,6 +10,8 @@ export interface LcarsNavItem {
   color: string
   // other sections that should light this button up
   also?: string[]
+  // sub-buttons shown under this one (desktop and tablet only)
+  children?: { label: string; path: string; color: string }[]
 }
 
 interface Options {
@@ -52,14 +54,25 @@ export default ((opts: Options) => {
         <nav class="lcars-rail" aria-label="Primary">
           <div class="lcars-rail-inner">
             {opts.nav.map((item) => (
-              <a
-                href={href(item.path)}
-                class={`lcars-rail-btn c-${item.color}${isActive(item) ? " active" : ""}`}
-                aria-current={isActive(item) ? "page" : undefined}
-              >
-                <span class="code">{item.code}</span>
-                <span class="label">{item.label}</span>
-              </a>
+              <>
+                <a
+                  href={href(item.path)}
+                  class={`lcars-rail-btn c-${item.color}${isActive(item) ? " active" : ""}`}
+                  aria-current={slug === item.path + "/index" || (item.path === "" && slug === "index") ? "page" : undefined}
+                >
+                  <span class="code">{item.code}</span>
+                  <span class="label">{item.label}</span>
+                </a>
+                {item.children?.map((child) => (
+                  <a
+                    href={href(child.path)}
+                    class={`lcars-rail-sub c-${child.color}${under(child.path) ? " active" : ""}`}
+                    aria-current={slug === child.path + "/index" ? "page" : undefined}
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </>
             ))}
             <div class="lcars-rail-fill c-plum" aria-hidden="true">
               <span class="code">SD {stardate(new Date())}</span>

@@ -27,7 +27,7 @@ import TmuxTabs from "./TmuxTabs"
 import LcarsFrame from "./LcarsFrame"
 import LcarsMeta from "./LcarsMeta"
 import LcarsFooter from "./LcarsFooter"
-import LcarsTopics from "./LcarsTopics"
+import LcarsTopics, { LcarsTopicPosts } from "./LcarsTopics"
 import { LcarsHomeHero, LcarsHomeFeed } from "./LcarsHome"
 
 export {
@@ -61,6 +61,7 @@ export {
   LcarsMeta,
   LcarsFooter,
   LcarsTopics,
+  LcarsTopicPosts,
   LcarsHomeHero,
   LcarsHomeFeed,
 }
