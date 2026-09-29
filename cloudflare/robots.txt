@@ -1,0 +1,5 @@
+# systems/null: everything here is public on purpose.
+User-agent: *
+Allow: /
+
+Sitemap: https://systemsnull.net/sitemap.xml
