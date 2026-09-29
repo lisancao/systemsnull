@@ -2,11 +2,11 @@
 title: About
 ---
 
-I'm a systems thinker. What I love most is watching small things interact until they add up to behavior none of them could produce alone.
+I'm drawn to systems for the same reason in every field I've worked in: small, granular, almost atomic changes that interact until they shift something at the macro level, and then feed back on themselves. A few molecules of a hormone bind a receptor, a gene switches on, a behaviour changes, and the behaviour changes the hormone. One mutation survives a round of selection, and a few generations later a genetic algorithm's whole population has converged on a solution no individual was designed to find; a swarm of agents each following a handful of local rules ends up behaving like something with a plan. A price moves, and the move becomes information that moves it again. Some of those loops are positive and run away with themselves; some are negative and hold everything steady; most real systems are a tangle of both.
 
-That started in neuroendocrinology: watching hormones set off cascades through the brain, shape behavior, and get reshaped by that behavior in turn, feedback loops that play out over an entire human lifetime.
+What fascinates me is that these systems are semi-deterministic and have no agency at all. A cascading hormone system is exactly as agnostic about itself as a genetic algorithm or a change in a stock price: none of them wants anything or knows what it's doing, and yet what they produce is structured enough that you can learn to read it, and sometimes to anticipate it.
 
-I bring the same lens to data engineering. Pipelines and data systems don't just record the world; they act on it, and then reshape themselves around what they find. Now AI agents are doing the same thing, at the intersection of many complex variables: economics, user dynamics, and psychology.
+That started in neuroendocrinology, in circadian and behavioural endocrinology labs, and it's the same lens I bring to data engineering. Now AI agents are doing it too, at the intersection of economics, user dynamics, and psychology. Lately I've been engaging a lot with Benjamin Bratton's *The Stack* and digital topologies in this vein, and with data sovereignty as a consequence. It's why this blog wanders between hormones, Spark internals, and who funds AI research: to me they're the same kind of question.
 
 I'm a huge believer in open source. I think it's the future, and it's already the core of the technical systems that run our entire world. I've been a Linux fan for a long time, Ubuntu especially, despite the flak that's earned me from Arch users.
 

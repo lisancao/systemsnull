@@ -7,6 +7,7 @@ LOG_FILE="$HOME/.local/share/systemsnull/deploy.log"
 OBSIDIAN_SEVEN="$HOME/Documents/systemsnull/Seven-Public"
 OBSIDIAN_GLYPH="$HOME/Documents/systemsnull/Glyph-Public"
 OBSIDIAN_BLOG="$HOME/Documents/systemsnull/Blog-Public"
+OBSIDIAN_SITE="$HOME/Documents/systemsnull/Site-Public"
 
 mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -20,6 +21,9 @@ log "Syncing Obsidian content..."
 rsync -a --delete "$OBSIDIAN_SEVEN/" "$SITE_DIR/content/seven-public/"
 # Lisa's own posts; the vault is the source of truth (content/posts is overwritten)
 rsync -a --delete "$OBSIDIAN_BLOG/" "$SITE_DIR/content/posts/"
+# Site pages (Home, About, Talks, ...) and their images: mirror only root-level .md files and
+# assets/, so the other content folders (posts, agents, emotes) are left alone
+rsync -a --delete --include='/*.md' --include='/assets/***' --exclude='*' "$OBSIDIAN_SITE/" "$SITE_DIR/content/"
 HOLD_FILE="$SITE_DIR/deploy-hold.txt"
 rsync -a --delete --delete-excluded --exclude-from=<(grep -v '^#' "$HOLD_FILE" | sed '/^$/d') \
   "$OBSIDIAN_GLYPH/" "$SITE_DIR/content/glyph-public/"
