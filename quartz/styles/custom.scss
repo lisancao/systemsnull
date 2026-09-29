@@ -1381,49 +1381,67 @@ article img[src*="emotes/"] {
   box-shadow: none;
 }
 
-// ---------- Rail sub-buttons (Blog topics) ----------
-// Thinner, indented blocks under their parent, in each topic's colour.
+// ---------- Rail submenu (Blog topics) ----------
+// Styled like the Contents panel: a thin rule and plain links, shown only inside the section.
 
-.lcars-rail-sub {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  height: 34px;
-  margin-left: 22px;
-  padding: 0 12px 5px;
-  box-sizing: border-box;
-  background: var(--c);
-  color: var(--sw-ink) !important;
-  font-family: var(--headerFont);
-  font-size: 0.82rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  white-space: nowrap;
-  opacity: 0.85;
-  box-shadow: var(--glow-box);
-  transition:
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
+.lcars-subnav {
+  list-style: none;
+  margin: 2px 0 4px 18px;
+  padding: 0.35rem 0 0.35rem 0.8rem;
+  border-left: 4px solid var(--sw-ice);
+  box-shadow: -4px 0 12px -4px rgba(134, 211, 216, 0.45);
+  overflow: hidden;
 
-  &:hover {
-    opacity: 1;
-    box-shadow: var(--glow-box-hot);
+  li {
+    margin: 0;
   }
 
-  &.active {
+  a {
+    display: block;
+    padding: 0.2rem 0;
+    font-size: 0.88rem;
+    line-height: 1.3;
+    color: var(--darkgray) !important;
+    background: none !important;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--c) !important;
+    }
+
+    &.active {
+      color: var(--c) !important;
+      font-weight: 600;
+      text-shadow: 0 0 10px color-mix(in srgb, var(--c) 35%, transparent);
+    }
+  }
+}
+
+.lcars-subnav-enter {
+  animation: lcars-subnav-open 0.35s ease-out;
+}
+
+@keyframes lcars-subnav-open {
+  from {
+    max-height: 0;
+    opacity: 0;
+    padding-block: 0;
+  }
+  to {
+    max-height: 12rem;
     opacity: 1;
-    box-shadow:
-      var(--glow-box-hot),
-      inset -10px 0 0 var(--sw-ink);
-    padding-right: 20px;
-    font-weight: 700;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lcars-subnav-enter {
+    animation: none;
   }
 }
 
 @media all and ($mobile) {
-  .lcars-rail-sub {
+  .lcars-subnav {
     display: none; // the Blog page lists the topics on phones
   }
 }

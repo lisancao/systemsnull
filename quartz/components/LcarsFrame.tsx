@@ -63,15 +63,21 @@ export default ((opts: Options) => {
                   <span class="code">{item.code}</span>
                   <span class="label">{item.label}</span>
                 </a>
-                {item.children?.map((child) => (
-                  <a
-                    href={href(child.path)}
-                    class={`lcars-rail-sub c-${child.color}${under(child.path) ? " active" : ""}`}
-                    aria-current={slug === child.path + "/index" ? "page" : undefined}
-                  >
-                    {child.label}
-                  </a>
-                ))}
+                {item.children && under(item.path) && (
+                  <ul class="lcars-subnav" data-section={item.path}>
+                    {item.children.map((child) => (
+                      <li class={`c-${child.color}`}>
+                        <a
+                          href={href(child.path)}
+                          class={under(child.path) ? "active" : undefined}
+                          aria-current={slug === child.path + "/index" ? "page" : undefined}
+                        >
+                          {child.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             ))}
             <div class="lcars-rail-fill c-plum" aria-hidden="true">
@@ -82,6 +88,22 @@ export default ((opts: Options) => {
       </>
     )
   }
+
+  // Slide the submenu open when you arrive in its section from elsewhere; moving
+  // between pages inside the section keeps it open without replaying the animation.
+  LcarsFrame.afterDOMLoaded = `
+    let lcarsPrevSection = null
+    document.addEventListener("nav", () => {
+      const sub = document.querySelector(".lcars-subnav")
+      const section = sub ? sub.dataset.section : null
+      if (sub && section !== lcarsPrevSection) {
+        sub.classList.remove("lcars-subnav-enter")
+        void sub.offsetWidth
+        sub.classList.add("lcars-subnav-enter")
+      }
+      lcarsPrevSection = section
+    })
+  `
 
   return LcarsFrame
 }) satisfies QuartzComponentConstructor<Options>
