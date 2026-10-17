@@ -65,6 +65,8 @@ log "Building Quartz..."
 npx quartz build >> "$LOG_FILE" 2>&1
 cp "$SITE_DIR/cloudflare/_headers" "$SITE_DIR/public/_headers"
 cp "$SITE_DIR/cloudflare/robots.txt" "$SITE_DIR/public/robots.txt"
+# IndexNow key file must be served from the site root (Bing/Yandex/Seznam/Naver pick up sitemap pings)
+cp "$SITE_DIR"/cloudflare/f91e0345d5bb413cf42125a08cf7edb8.txt "$SITE_DIR/public/"
 python3 "$SITE_DIR/scripts/gen-llms.py" "$SITE_DIR" >> "$LOG_FILE" 2>&1
 log "Deploying to Cloudflare Pages..."
 npx wrangler pages deploy public --project-name systemsnull --branch main --commit-dirty=true >> "$LOG_FILE" 2>&1
