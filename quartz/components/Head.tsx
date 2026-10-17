@@ -13,8 +13,10 @@ export default (() => {
     ctx,
   }: QuartzComponentProps) => {
     const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title =
-      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
+    const rawTitle = String(
+      fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title,
+    ).trim()
+    const title = rawTitle + titleSuffix
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??
@@ -36,6 +38,48 @@ export default (() => {
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
 
+    // Blog posts carry article metadata (dates, author, tags, JSON-LD) so crawlers and
+    // agents can cite them; listings and site pages stay plain "website" pages.
+    const slug = fileData.slug ?? ""
+    const isPost = slug.startsWith("posts/") && !slug.endsWith("/index")
+    const canonical =
+      typeof fileData.frontmatter?.canonical === "string"
+        ? (fileData.frontmatter.canonical as string)
+        : socialUrl
+    const iso = (d?: Date) =>
+      d instanceof Date && !isNaN(d.getTime()) ? d.toISOString() : undefined
+    const publishedAt = iso(fileData.dates?.published ?? fileData.dates?.created)
+    const modifiedAt = iso(fileData.dates?.modified) ?? publishedAt
+    const tags = Array.isArray(fileData.frontmatter?.tags)
+      ? (fileData.frontmatter!.tags as string[])
+      : []
+    const author = "Lisa N. Cao"
+    const socialImage = fileData.frontmatter?.socialImage
+    const ogImage =
+      typeof socialImage === "string" && socialImage.startsWith("http")
+        ? socialImage
+        : usesCustomOgImage
+          ? `https://${cfg.baseUrl}/${slug}-og-image.webp`
+          : ogImageDefaultPath
+    const jsonLd = isPost
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: rawTitle,
+          description,
+          url: socialUrl,
+          mainEntityOfPage: socialUrl,
+          image: ogImage,
+          datePublished: publishedAt,
+          dateModified: modifiedAt,
+          author: { "@type": "Person", name: author, url: `https://${cfg.baseUrl}/about` },
+          publisher: { "@type": "Person", name: author, url: `https://${cfg.baseUrl}/` },
+          keywords: tags.join(", "),
+          inLanguage: cfg.locale,
+          isAccessibleForFree: true,
+        }
+      : undefined
+
     return (
       <head>
         <title>{title}</title>
@@ -55,7 +99,12 @@ export default (() => {
 
         <meta name="og:site_name" content={cfg.pageTitle}></meta>
         <meta property="og:title" content={title} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content={isPost ? "article" : "website"} />
+        {isPost && publishedAt && <meta property="article:published_time" content={publishedAt} />}
+        {isPost && modifiedAt && <meta property="article:modified_time" content={modifiedAt} />}
+        {isPost && <meta property="article:author" content={author} />}
+        {isPost && tags.map((t) => <meta property="article:tag" content={t} />)}
+        <meta name="author" content={author} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
@@ -80,6 +129,17 @@ export default (() => {
             <meta property="og:url" content={socialUrl}></meta>
             <meta property="twitter:url" content={socialUrl}></meta>
           </>
+        )}
+
+        {/* self-canonical by default; frontmatter `canonical:` overrides when a post was first published elsewhere */}
+        {fileData.slug !== "404" && <link rel="canonical" href={canonical} />}
+        {jsonLd && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+            }}
+          />
         )}
 
         <link rel="icon" href={iconPath} />

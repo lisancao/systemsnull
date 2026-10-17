@@ -1445,3 +1445,14 @@ article img[src*="emotes/"] {
     display: none; // the Blog page lists the topics on phones
   }
 }
+
+// ---------- Post paragraph indents ----------
+// First-line indent on body paragraphs in blog posts (not listings, lists, quotes, or image-only paragraphs)
+body[data-slug^="posts/"]:not([data-slug$="/index"]) article > p {
+  text-indent: 1.75em;
+
+  &:has(> img:only-child),
+  &:has(> figure) {
+    text-indent: 0;
+  }
+}

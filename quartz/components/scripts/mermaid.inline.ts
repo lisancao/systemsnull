@@ -223,6 +223,8 @@ document.addEventListener("nav", async () => {
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: "loose",
+      // unique, counter-based SVG ids: Date.now() ids collide when several diagrams render in the same millisecond
+      deterministicIds: true,
       theme: darkMode ? "dark" : "base",
       themeVariables: {
         fontFamily: computedStyleMap["--codeFont"],
