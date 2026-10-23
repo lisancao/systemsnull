@@ -12,8 +12,7 @@ const writingTopics = [
 // frame's elbow, top bar and rail, plus search, each get their own grid area.
 const lcarsLeft = [
   Component.LcarsFrame({
-    siteName: "systems/null",
-    subtitle: "Open Source · Data Engineering · AI and society",
+    siteName: "systemsnull",
     nav: [
       { label: "Home", path: "", code: "01", color: "magenta" },
       {
@@ -72,7 +71,10 @@ export const sharedPageComponents: SharedLayout = {
     onlyIndex(
       Component.LcarsHomeFeed({
         postsPath: "posts",
-        latestCount: 6,
+        latestCount: 4,
+        fallbackArt: ["station", "wings", "compass", "comet", "antenna", "capsule"].map(
+          (b) => `static/sprites/badge-${b}.webp`,
+        ),
         podcast: {
           title: "Open Lakehouse + AI",
           blurb: "Weekly, with Scott Haines: open source query engines, catalogs, table formats, and streaming.",
@@ -83,11 +85,13 @@ export const sharedPageComponents: SharedLayout = {
             name: "Seven",
             path: "seven-public",
             blurb: "Writer, reader, the one with the bookshelf.",
+            icon: "static/sprites/padd.png",
           },
           {
             name: "Glyph",
             path: "glyph-public",
             blurb: "Engineer, keeper, the one who wakes at 3 AM.",
+            icon: "static/sprites/displays.png",
           },
         ],
         elsewhere: [
@@ -122,8 +126,9 @@ export const defaultContentPageLayout: PageLayout = {
       Component.LcarsHomeHero({
         name: "Lisa N. Cao",
         role: "Developer Relations, Open Source, Bad Human",
-        photo: "assets/lisa-cao.jpg",
-        photoAlt: "Lisa N. Cao, smiling, in front of the New York City skyline",
+        photo: "static/sprites/server-meltdown.png",
+        photoAlt: "Pixel-art Lisa on her knees, hands in her hair, next to a sparking server rack",
+        photoPixel: true,
       }),
     ),
     notIndex(Component.Breadcrumbs({ rootName: "Home" })),

@@ -29,3 +29,13 @@ export function sectionPages(
     .filter((f) => isPost(f, section))
     .sort((a, b) => (getDate(cfg, b)?.getTime() ?? 0) - (getDate(cfg, a)?.getTime() ?? 0))
 }
+
+// A post's banner: frontmatter socialImage (an absolute URL on this site, see Head.tsx),
+// made relative so it also works on preview builds. Undefined when the post has none.
+export function bannerSrc(slug: string | undefined, p: QuartzPluginData): string | undefined {
+  const img = p.frontmatter?.socialImage
+  if (typeof img !== "string" || img === "") return undefined
+  const local = img.replace(/^https?:\/\/(www\.)?systemsnull\.net\//, "")
+  if (local === img) return img
+  return joinSegments(pathToRoot((slug ?? "index") as FullSlug), local)
+}

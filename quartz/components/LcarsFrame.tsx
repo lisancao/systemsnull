@@ -16,7 +16,7 @@ export interface LcarsNavItem {
 
 interface Options {
   siteName: string
-  subtitle: string
+  subtitle?: string
   nav: LcarsNavItem[]
 }
 
@@ -48,7 +48,7 @@ export default ((opts: Options) => {
             <a class="lcars-sitename" href={root}>
               {opts.siteName}
             </a>
-            <span class="lcars-subtitle">{opts.subtitle}</span>
+            {opts.subtitle && <span class="lcars-subtitle">{opts.subtitle}</span>}
           </div>
         </div>
         <nav class="lcars-rail" aria-label="Primary">

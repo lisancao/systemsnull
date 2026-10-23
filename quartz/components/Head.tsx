@@ -16,7 +16,8 @@ export default (() => {
     const rawTitle = String(
       fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title,
     ).trim()
-    const title = rawTitle + titleSuffix
+    // the homepage's title is the site name, so don't repeat it as the suffix
+    const title = rawTitle === cfg.pageTitle ? rawTitle : rawTitle + titleSuffix
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??

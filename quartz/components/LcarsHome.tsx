@@ -2,7 +2,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { formatDate, getDate } from "./Date"
 import { resolveRelative, FullSlug, pathToRoot, joinSegments } from "../util/path"
 import { QuartzPluginData } from "../plugins/vfile"
-import { sectionPages, stardate } from "./lcarsUtil"
+import { bannerSrc, sectionPages, stardate } from "./lcarsUtil"
 
 interface HeroOptions {
   name: string
@@ -10,6 +10,8 @@ interface HeroOptions {
   // path relative to site root, e.g. "assets/lisa-cao.jpg"
   photo?: string
   photoAlt?: string
+  // the photo is pixel art: drop the frame and keep pixels square
+  photoPixel?: boolean
 }
 
 // Top of the homepage: name, role, and portrait. The bio paragraph is content/index.md
@@ -26,12 +28,13 @@ export const LcarsHomeHero = ((opts: HeroOptions) => {
         <p class="lcars-hero-role">{opts.role}</p>
       </div>
       {opts.photo && (
-        <figure class="lcars-portrait">
+        <figure class={opts.photoPixel ? "lcars-portrait is-pixel" : "lcars-portrait"}>
           <img
+            class={opts.photoPixel ? "pixel" : undefined}
             src={joinSegments(pathToRoot(fileData.slug!), opts.photo)}
             alt={opts.photoAlt ?? opts.name}
-            width="560"
-            height="560"
+            width={opts.photoPixel ? undefined : "560"}
+            height={opts.photoPixel ? undefined : "560"}
           />
         </figure>
       )}
@@ -44,6 +47,8 @@ interface AgentLog {
   name: string
   path: string
   blurb: string
+  // sprite path relative to site root
+  icon?: string
 }
 
 interface PodcastPanel {
@@ -59,6 +64,8 @@ interface FeedOptions {
   podcast?: PodcastPanel
   agents: AgentLog[]
   elsewhere: { label: string; href: string }[]
+  // shown on post cards without a banner, paths relative to site root
+  fallbackArt: string[]
 }
 
 export const LcarsHomeFeed = ((opts: FeedOptions) => {
@@ -68,6 +75,33 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
     const latest = posts.filter((p) => p !== featured).slice(0, opts.latestCount)
     const link = (p: QuartzPluginData) => resolveRelative(fileData.slug!, p.slug!)
     const dateOf = (p: QuartzPluginData) => getDate(cfg, p)
+    const asset = (path: string) => joinSegments(pathToRoot(fileData.slug!), path)
+    // under `max` characters, cut at a word boundary
+    const clip = (text: string, max: number) => {
+      if (text.length < max) return text
+      const cut = text.slice(0, max - 1)
+      return cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,;:.]+$/, "") + "…"
+    }
+    // posts without a banner take the stand-in art in turn, so neighbours never match
+    const standIn = new Map<string, string>()
+    for (const p of latest) {
+      if (!bannerSrc(fileData.slug, p)) {
+        standIn.set(p.slug!, asset(opts.fallbackArt[standIn.size % opts.fallbackArt.length]))
+      }
+    }
+    // banner image, or badge art on a gradient when the post has none
+    const cover = (p: QuartzPluginData, cls: string) => {
+      const banner = bannerSrc(fileData.slug, p)
+      return banner ? (
+        <span class={`${cls} has-banner`}>
+          <img src={banner} alt="" loading="lazy" />
+        </span>
+      ) : (
+        <span class={`${cls} is-fallback`}>
+          <img src={standIn.get(p.slug!)} alt="" loading="lazy" />
+        </span>
+      )
+    }
 
     return (
       <div class="lcars-feed">
@@ -94,17 +128,22 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
               <span>Latest posts</span>
               <span class="code">02</span>
             </header>
-            <ol class="lcars-postlist">
+            <ol class="lcars-cards">
               {latest.map((p) => {
                 const d = dateOf(p)
+                // frontmatter `summary:` is a short card blurb; descriptions are written for
+                // search and run long, so they get cut to the card's length instead
+                const blurb = clip(String(p.frontmatter?.summary ?? p.description ?? ""), 200)
                 return (
                   <li>
-                    <span class="lcars-postlist-date">
-                      {d ? formatDate(d, cfg.locale) : ""}
-                      {d && <span class="sd">SD {stardate(d)}</span>}
-                    </span>
-                    <a class="internal" href={link(p)}>
-                      {p.frontmatter?.title}
+                    <a class="lcars-card internal" href={link(p)}>
+                      {cover(p, "lcars-cover")}
+                      <span class="lcars-card-date">
+                        {d ? formatDate(d, cfg.locale) : ""}
+                        {d && <span class="sd">SD {stardate(d)}</span>}
+                      </span>
+                      <span class="lcars-card-title">{p.frontmatter?.title}</span>
+                      {blurb && <span class="lcars-card-desc">{blurb}</span>}
                     </a>
                   </li>
                 )
@@ -161,6 +200,7 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
                   class="lcars-agent internal"
                   href={resolveRelative(fileData.slug!, `${agent.path}/index` as FullSlug)}
                 >
+                  {agent.icon && <img class="lcars-agent-icon pixel" src={asset(agent.icon)} alt="" />}
                   <span class="lcars-agent-name">{agent.name}</span>
                   <span class="lcars-agent-blurb">{agent.blurb}</span>
                   <span class="lcars-readout">{entries.length} entries</span>

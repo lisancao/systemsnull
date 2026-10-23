@@ -1,7 +1,7 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
 
-// === SYSTEMS/NULL · LCARS × SYNTHWAVE '84 ===
+// === SYSTEMSNULL · LCARS × SYNTHWAVE '84 ===
 // Chrome is LCARS (elbow, top bar, rail, pills) lit like neon. The reading column stays quiet.
 
 :root {
@@ -1454,5 +1454,172 @@ body[data-slug^="posts/"]:not([data-slug$="/index"]) article > p {
   &:has(> img:only-child),
   &:has(> figure) {
     text-indent: 0;
+  }
+}
+
+// ---------- Pixel sprites ----------
+// Sprites in /static/sprites are stored at their true pixel size; show them at whole
+// multiples (1x, 2x, 3x) so every art pixel stays square and sharp.
+
+img.pixel {
+  image-rendering: pixelated;
+  margin: 0;
+  border-radius: 0;
+  content-visibility: visible;
+}
+
+// pixel-art portrait (113x87) at 2x, without the photo frame
+.lcars-portrait.is-pixel {
+  width: 226px;
+
+  img {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.lcars-agent.internal {
+  position: relative;
+  padding-right: 8.5rem;
+}
+
+// a fixed 2x box: the PADD (29x44) and the displays (52x39) both land on exact 2x
+.lcars-agent-icon {
+  position: absolute;
+  right: 1rem;
+  top: calc(50% - 44px);
+  width: 104px;
+  height: 88px;
+  object-fit: contain;
+}
+
+.lcars-404-scene {
+  display: block;
+  width: 339px;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0 0.5rem;
+}
+
+@media all and ($mobile) {
+  .lcars-portrait.is-pixel {
+    width: 113px;
+  }
+}
+
+// ---------- Post covers ----------
+// Post banners (frontmatter socialImage) on the Latest cards.
+// Posts without one get badge art on a gradient so the grid never has holes.
+
+.lcars-cover {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    object-fit: cover;
+    content-visibility: visible;
+    transition: transform 0.35s ease;
+  }
+
+  &.is-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 50% 60%, rgba(31, 165, 173, 0.18), transparent 65%),
+      linear-gradient(160deg, #1b1446, #0c1230 55%, #2a0f3d);
+
+    img {
+      width: auto;
+      height: 82%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 14px rgba(211, 78, 199, 0.35));
+    }
+  }
+}
+
+a:hover > .lcars-cover img {
+  transform: scale(1.03);
+}
+
+.lcars-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+
+  li {
+    margin: 0;
+  }
+}
+
+.lcars-card.internal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 2px solid var(--sw-line);
+  border-radius: 0 16px 16px 0;
+  background: var(--sw-panel) !important;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--sw-ice);
+    box-shadow: 0 0 18px rgba(127, 209, 214, 0.18);
+  }
+
+  .lcars-cover {
+    border-bottom: 2px solid var(--sw-line);
+  }
+}
+
+.lcars-card-date {
+  padding: 0.8rem 1rem 0;
+  font-family: var(--headerFont);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  color: var(--sw-ice);
+
+  .sd {
+    margin-left: 0.6rem;
+    color: var(--sw-violet);
+  }
+}
+
+.lcars-card-title {
+  padding: 0.3rem 1rem 1rem;
+  color: var(--dark);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.lcars-card-desc {
+  margin: -0.6rem 1rem 1rem;
+  color: var(--gray);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.lcars-card.internal:hover .lcars-card-title {
+  color: var(--sw-ice);
+}
+
+@media all and ($mobile) {
+  .lcars-cards {
+    grid-template-columns: 1fr;
   }
 }

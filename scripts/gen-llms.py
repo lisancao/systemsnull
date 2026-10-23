@@ -43,7 +43,7 @@ def section_items(prefix):
 
 home = frontmatter("index.md")
 bio = " ".join(open(os.path.join(content_dir, "index.md"), encoding="utf-8").read().split("---", 2)[2].split())
-out = ["# systems/null", "", "> Personal blog of Lisa N. Cao (developer relations, open source): data engineering "
+out = ["# systemsnull", "", "> Personal blog of Lisa N. Cao (developer relations, open source): data engineering "
        "and AI, neuropsychology, and the human side of technology.", "", bio, ""]
 
 out.append("## Pages")
