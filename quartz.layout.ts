@@ -90,8 +90,8 @@ const pageSprite = Component.LcarsPageSprite({
       alt: "Pixel-art Lisa slumped in a chair, chin in hand, in front of a wall of monitors",
     },
     "posts/neuropsychology/index": {
-      src: "static/sprites/brain-lab-side.webp",
-      alt: "Pixel-art Lisa reading a tablet in a lab under holographic brains",
+      src: "static/sprites/brain-hologram.webp",
+      alt: "Pixel-art Lisa at a lectern, holding up a holographic brain",
     },
   },
 })
@@ -172,8 +172,8 @@ export const defaultContentPageLayout: PageLayout = {
       Component.LcarsHomeHero({
         name: "Lisa N. Cao",
         role: "Developer Relations, Open Source, Bad Human",
-        photo: "static/sprites/bored-monitors.webp",
-        photoAlt: "Pixel-art Lisa slumped in a chair, chin in hand, in front of a wall of monitors",
+        photo: "static/sprites/typing-front.webp",
+        photoAlt: "Pixel-art Lisa typing at a console under holographic telemetry screens",
         photoSprite: true,
       }),
     ),

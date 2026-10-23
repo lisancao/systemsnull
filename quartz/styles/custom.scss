@@ -1541,9 +1541,14 @@ body[data-slug="posts/data-engineering-ai/index"] .lcars-page-sprite {
 }
 
 // topic pages: art beside the title, matched in height
-body[data-slug="posts/human-things/index"] .lcars-page-sprite,
-body[data-slug="posts/neuropsychology/index"] .lcars-page-sprite {
+body[data-slug="posts/human-things/index"] .lcars-page-sprite {
   height: 260px;
+  margin: 0.25rem 0 1.25rem 2rem;
+}
+
+// the brain-hologram original is 207px tall: shown at that size, never stretched
+body[data-slug="posts/neuropsychology/index"] .lcars-page-sprite {
+  height: 207px;
   margin: 0.25rem 0 1.25rem 2rem;
 }
 
