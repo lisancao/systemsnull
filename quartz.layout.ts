@@ -8,6 +8,11 @@ const writingTopics = [
   { path: "human-things", label: "Human Things", color: "orchid" },
 ]
 
+// Stand-in art for post and project cards that have no image of their own
+const badgeArt = ["station", "wings", "compass", "comet", "antenna", "capsule"].map(
+  (b) => `static/sprites/badge-${b}.webp`,
+)
+
 // LCARS chrome. The left sidebar is `display: contents` (see custom.scss), so the
 // frame's elbow, top bar and rail, plus search, each get their own grid area.
 const lcarsLeft = [
@@ -65,6 +70,12 @@ export const sharedPageComponents: SharedLayout = {
       condition: (page) => page.fileData.slug === "posts/index",
     }),
     Component.ConditionalRender({
+      component: Component.LcarsProjects({
+        fallbackArt: badgeArt,
+      }),
+      condition: (page) => page.fileData.slug === "projects",
+    }),
+    Component.ConditionalRender({
       component: Component.LcarsTopicPosts(),
       condition: (page) => writingTopics.some((t) => page.fileData.slug === `posts/${t.path}/index`),
     }),
@@ -72,9 +83,7 @@ export const sharedPageComponents: SharedLayout = {
       Component.LcarsHomeFeed({
         postsPath: "posts",
         latestCount: 4,
-        fallbackArt: ["station", "wings", "compass", "comet", "antenna", "capsule"].map(
-          (b) => `static/sprites/badge-${b}.webp`,
-        ),
+        fallbackArt: badgeArt,
         podcast: {
           title: "Open Lakehouse + AI",
           blurb: "Weekly, with Scott Haines: open source query engines, catalogs, table formats, and streaming.",
@@ -127,8 +136,8 @@ export const defaultContentPageLayout: PageLayout = {
       Component.LcarsHomeHero({
         name: "Lisa N. Cao",
         role: "Developer Relations, Open Source, Bad Human",
-        photo: "static/sprites/spacesuit-server.webp",
-        photoAlt: "Pixel-art Lisa in a red spacesuit, kneeling to rewire a server rack",
+        photo: "static/sprites/bored-monitors.webp",
+        photoAlt: "Pixel-art Lisa slumped in a chair, chin in hand, in front of a wall of monitors",
         photoSprite: true,
       }),
     ),
@@ -137,7 +146,7 @@ export const defaultContentPageLayout: PageLayout = {
       sprites: {
         podcast: { src: "static/sprites/podcast-onair.webp", alt: "Pixel-art Lisa at a microphone" },
         talks: { src: "static/sprites/presenting.webp", alt: "Pixel-art Lisa presenting at an architecture board" },
-        projects: { src: "static/sprites/typing-desk.webp", alt: "Pixel-art Lisa typing at a console" },
+        projects: { src: "static/sprites/spacesuit-server.webp", alt: "Pixel-art Lisa in a red spacesuit, kneeling to rewire a server rack" },
         agents: { src: "static/sprites/plushie.webp", alt: "Pixel-art Lisa holding a small blue plush creature" },
         about: { src: "static/sprites/window-lounge.webp", alt: "Pixel-art Lisa lounging in a chair by a starship viewport, drink in hand" },
       },

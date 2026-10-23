@@ -30,6 +30,7 @@ import LcarsFooter from "./LcarsFooter"
 import LcarsTopics, { LcarsTopicPosts } from "./LcarsTopics"
 import { LcarsHomeHero, LcarsHomeFeed } from "./LcarsHome"
 import LcarsPageSprite from "./LcarsPageSprite"
+import LcarsProjects from "./LcarsProjects"
 
 export {
   ArticleTitle,
@@ -66,4 +67,5 @@ export {
   LcarsHomeHero,
   LcarsHomeFeed,
   LcarsPageSprite,
+  LcarsProjects,
 }

@@ -1686,3 +1686,68 @@ a:hover > .lcars-cover img {
     grid-template-columns: 1fr;
   }
 }
+
+// ---------- Project cards ----------
+// Same card look as Latest posts; the list comes from projects.md frontmatter.
+
+.lcars-projects {
+  clear: both;
+  margin-top: 1.5rem;
+}
+
+.lcars-card.lcars-project {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid var(--sw-line);
+  border-radius: 0 16px 16px 0;
+  background: var(--sw-panel);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--sw-ice);
+    box-shadow: 0 0 18px rgba(127, 209, 214, 0.18);
+  }
+
+  .lcars-cover {
+    border-bottom: 2px solid var(--sw-line);
+  }
+
+  h2.lcars-card-title {
+    margin: 0;
+    padding: 0.7rem 0.9rem 0.6rem;
+    font-family: var(--headerFont);
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    a {
+      color: var(--sw-ice) !important;
+      background: none !important;
+    }
+  }
+
+  // project blurbs are short, so show them whole
+  .lcars-card-desc {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    margin: 0 0.9rem 0.6rem;
+    font-size: 0.9rem;
+  }
+}
+
+.lcars-project-cover-link {
+  display: block;
+  background: none !important;
+}
+
+.lcars-project-links {
+  margin: auto 0.9rem 0.9rem;
+  padding-top: 0.2rem;
+  font-size: 0.88rem;
+}
