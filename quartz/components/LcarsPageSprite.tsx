@@ -3,7 +3,8 @@ import { joinSegments, pathToRoot } from "../util/path"
 
 interface Options {
   // page slug -> pixel sprite (path relative to site root) and its alt text
-  sprites: Record<string, { src: string; alt: string }>
+  // scene: a whole scene shown centred above the title instead of floated beside it
+  sprites: Record<string, { src: string; alt: string; scene?: boolean }>
 }
 
 // A pixel sprite beside the title of a site page (Talks, Projects, ...). The pages
@@ -14,7 +15,7 @@ export default ((opts: Options) => {
     if (!sprite) return null
     return (
       <img
-        class="lcars-page-sprite sprite"
+        class={sprite.scene ? "lcars-page-scene sprite" : "lcars-page-sprite sprite"}
         src={joinSegments(pathToRoot(fileData.slug!), sprite.src)}
         alt={sprite.alt}
       />

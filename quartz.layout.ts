@@ -60,6 +60,42 @@ const onlyIndex = (component: Parameters<typeof Component.ConditionalRender>[0][
     condition: (page) => page.fileData.slug === "index",
   })
 
+// Art beside (or, for whole scenes, centred above) the title of site pages and blog topic pages
+const pageSprite = Component.LcarsPageSprite({
+  sprites: {
+    podcast: { src: "static/sprites/podcast-onair.webp", alt: "Pixel-art Lisa at a microphone" },
+    talks: {
+      src: "static/sprites/telemetry.webp",
+      alt: "Pixel-art Lisa at a console, presenting a holographic telemetry display",
+      scene: true,
+    },
+    projects: {
+      src: "static/sprites/crystal-repair.webp",
+      alt: "Pixel-art Lisa soldering a console overgrown with crystals",
+      scene: true,
+    },
+    agents: { src: "static/sprites/plushie.webp", alt: "Pixel-art Lisa holding a small blue plush creature" },
+    about: { src: "static/sprites/window-lounge.webp", alt: "Pixel-art Lisa lounging in a chair by a starship viewport, drink in hand" },
+    "posts/index": {
+      src: "static/sprites/lab-solder.webp",
+      alt: "Pixel-art Lisa soldering a circuit board in a cluttered lab of monitors flashing CRITICAL ERROR",
+      scene: true,
+    },
+    "posts/data-engineering-ai/index": {
+      src: "static/sprites/spacesuit-server.webp",
+      alt: "Pixel-art Lisa in a red spacesuit, kneeling to rewire a server rack",
+    },
+    "posts/human-things/index": {
+      src: "static/sprites/bored-monitors.webp",
+      alt: "Pixel-art Lisa slumped in a chair, chin in hand, in front of a wall of monitors",
+    },
+    "posts/neuropsychology/index": {
+      src: "static/sprites/brain-lab-side.webp",
+      alt: "Pixel-art Lisa reading a tablet in a lab under holographic brains",
+    },
+  },
+})
+
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
@@ -142,15 +178,7 @@ export const defaultContentPageLayout: PageLayout = {
       }),
     ),
     notIndex(Component.Breadcrumbs({ rootName: "Home" })),
-    Component.LcarsPageSprite({
-      sprites: {
-        podcast: { src: "static/sprites/podcast-onair.webp", alt: "Pixel-art Lisa at a microphone" },
-        talks: { src: "static/sprites/presenting.webp", alt: "Pixel-art Lisa presenting at an architecture board" },
-        projects: { src: "static/sprites/spacesuit-server.webp", alt: "Pixel-art Lisa in a red spacesuit, kneeling to rewire a server rack" },
-        agents: { src: "static/sprites/plushie.webp", alt: "Pixel-art Lisa holding a small blue plush creature" },
-        about: { src: "static/sprites/window-lounge.webp", alt: "Pixel-art Lisa lounging in a chair by a starship viewport, drink in hand" },
-      },
-    }),
+    pageSprite,
     notIndex(Component.ArticleTitle()),
     // dates and reading time only mean something on posts and agent logs
     Component.ConditionalRender({
@@ -172,7 +200,7 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs({ rootName: "Home" }), Component.ArticleTitle()],
+  beforeBody: [Component.Breadcrumbs({ rootName: "Home" }), pageSprite, Component.ArticleTitle()],
   left: lcarsLeft,
   right: [],
 }

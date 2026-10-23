@@ -1534,10 +1534,32 @@ img.sprite {
   margin: 0 0 1rem 1.5rem;
 }
 
+// the spacesuit's original is only 256px tall: show it at that size, never stretched
+body[data-slug="posts/data-engineering-ai/index"] .lcars-page-sprite {
+  height: 256px;
+  margin: 0.25rem 0 1.25rem 2rem;
+}
+
+// topic pages: art beside the title, matched in height
+body[data-slug="posts/human-things/index"] .lcars-page-sprite,
+body[data-slug="posts/neuropsychology/index"] .lcars-page-sprite {
+  height: 260px;
+  margin: 0.25rem 0 1.25rem 2rem;
+}
+
 // About opens with a long paragraph, so its sprite is bigger with room to wrap around
 body[data-slug="about"] .lcars-page-sprite {
   height: 230px;
   margin: 0.5rem 0 1.5rem 2.25rem;
+}
+
+// whole scenes sit centred above the page title, uncropped, with room before the title
+img.lcars-page-scene {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 0.5rem auto 2.25rem;
 }
 
 .lcars-empty-art {
@@ -1750,4 +1772,29 @@ a:hover > .lcars-cover img {
   margin: auto 0.9rem 0.9rem;
   padding-top: 0.2rem;
   font-size: 0.88rem;
+}
+
+// sprites placed inside a page's text from the vault, to break up long passages:
+// <img class="lcars-float-left" src="/static/sprites/..."> or class="lcars-scene" for a whole scene
+img.lcars-float-left {
+  float: left;
+  width: 170px;
+  height: auto;
+  margin: 0.35rem 1.75rem 1rem 0;
+  border-radius: 0;
+}
+
+img.lcars-scene {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 1.75rem auto;
+}
+
+@media all and ($mobile) {
+  img.lcars-float-left {
+    width: 100px;
+    margin-right: 1rem;
+  }
 }
