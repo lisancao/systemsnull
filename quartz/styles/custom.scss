@@ -788,6 +788,13 @@ body[data-slug="index"] article {
   margin-top: 1.1rem;
 }
 
+// homepage: All posts sits under the right edge of the card grid
+.lcars-cards + .lcars-more {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+}
+
 .lcars-agents {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -1457,20 +1464,19 @@ body[data-slug^="posts/"]:not([data-slug$="/index"]) article > p {
   }
 }
 
-// ---------- Pixel sprites ----------
-// Sprites in /static/sprites are stored at their true pixel size; show them at whole
-// multiples (1x, 2x, 3x) so every art pixel stays square and sharp.
+// ---------- Sprites ----------
+// Pixel-art cut-outs in /static/sprites, kept at the generator's full resolution with
+// only the green screen removed, and scaled down here.
 
-img.pixel {
-  image-rendering: pixelated;
+img.sprite {
   margin: 0;
   border-radius: 0;
   content-visibility: visible;
 }
 
-// pixel-art portrait (113x87) at 2x, without the photo frame
-.lcars-portrait.is-pixel {
-  width: 226px;
+// homepage portrait: a sprite instead of the photo, without the photo frame
+.lcars-portrait.is-sprite {
+  width: 240px;
 
   img {
     border: none;
@@ -1483,7 +1489,6 @@ img.pixel {
   padding-right: 8.5rem;
 }
 
-// a fixed 2x box: the PADD (29x44) and the displays (52x39) both land on exact 2x
 .lcars-agent-icon {
   position: absolute;
   right: 1rem;
@@ -1501,9 +1506,52 @@ img.pixel {
   margin: 1rem 0 0.5rem;
 }
 
+// On Air: the player with the podcast sprite beside it
+.lcars-onair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1.25rem;
+}
+
+// the sprite matches the player's height so both end on the same line
+.lcars-onair .lcars-embed {
+  margin-bottom: 0;
+}
+
+.lcars-onair-art img {
+  display: block;
+  height: 152px;
+  width: auto;
+}
+
+// site pages (Talks, Projects, ...): sprite floats beside the title
+.lcars-page-sprite {
+  float: right;
+  height: 160px;
+  width: auto;
+  margin: 0 0 0.5rem 0.75rem;
+}
+
+.lcars-empty-art {
+  display: block;
+  width: 174px;
+  height: auto;
+  margin-bottom: 0.75rem;
+}
+
 @media all and ($mobile) {
-  .lcars-portrait.is-pixel {
-    width: 113px;
+  .lcars-portrait.is-sprite {
+    width: 160px;
+  }
+  .lcars-onair {
+    grid-template-columns: 1fr;
+  }
+  .lcars-onair-art {
+    justify-self: center;
+  }
+  .lcars-page-sprite {
+    height: 90px;
   }
 }
 
@@ -1585,7 +1633,7 @@ a:hover > .lcars-cover img {
 }
 
 .lcars-card-date {
-  padding: 0.8rem 1rem 0;
+  padding: 0.6rem 0.9rem 0;
   font-family: var(--headerFont);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1599,19 +1647,25 @@ a:hover > .lcars-cover img {
 }
 
 .lcars-card-title {
-  padding: 0.3rem 1rem 1rem;
+  padding: 0.15rem 0.9rem 0.8rem;
   color: var(--dark);
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.35;
 }
 
+// three lines at most, so the text half of a card stays shorter than its banner
 .lcars-card-desc {
-  margin: -0.6rem 1rem 1rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  margin: -0.55rem 0.9rem 0.8rem;
   color: var(--gray);
   font-weight: 400;
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .lcars-card.internal:hover .lcars-card-title {

@@ -79,19 +79,20 @@ export const sharedPageComponents: SharedLayout = {
           title: "Open Lakehouse + AI",
           blurb: "Weekly, with Scott Haines: open source query engines, catalogs, table formats, and streaming.",
           embed: "https://open.spotify.com/embed/show/4k97PCeKwCIyrWLYXVijSZ?utm_source=generator&theme=0",
+          sprite: "static/sprites/podcast-onair.webp",
         },
         agents: [
           {
             name: "Seven",
             path: "seven-public",
             blurb: "Writer, reader, the one with the bookshelf.",
-            icon: "static/sprites/padd.png",
+            icon: "static/sprites/padd.webp",
           },
           {
             name: "Glyph",
             path: "glyph-public",
             blurb: "Engineer, keeper, the one who wakes at 3 AM.",
-            icon: "static/sprites/displays.png",
+            icon: "static/sprites/displays.webp",
           },
         ],
         elsewhere: [
@@ -126,12 +127,21 @@ export const defaultContentPageLayout: PageLayout = {
       Component.LcarsHomeHero({
         name: "Lisa N. Cao",
         role: "Developer Relations, Open Source, Bad Human",
-        photo: "static/sprites/server-meltdown.png",
-        photoAlt: "Pixel-art Lisa on her knees, hands in her hair, next to a sparking server rack",
-        photoPixel: true,
+        photo: "static/sprites/spacesuit-server.webp",
+        photoAlt: "Pixel-art Lisa in a red spacesuit, kneeling to rewire a server rack",
+        photoSprite: true,
       }),
     ),
     notIndex(Component.Breadcrumbs({ rootName: "Home" })),
+    Component.LcarsPageSprite({
+      sprites: {
+        podcast: { src: "static/sprites/podcast-onair.webp", alt: "Pixel-art Lisa at a microphone" },
+        talks: { src: "static/sprites/presenting.webp", alt: "Pixel-art Lisa presenting at an architecture board" },
+        projects: { src: "static/sprites/typing-desk.webp", alt: "Pixel-art Lisa typing at a console" },
+        agents: { src: "static/sprites/plushie.webp", alt: "Pixel-art Lisa holding a small blue plush creature" },
+        about: { src: "static/sprites/window-lounge.webp", alt: "Pixel-art Lisa lounging in a chair by a starship viewport, drink in hand" },
+      },
+    }),
     notIndex(Component.ArticleTitle()),
     // dates and reading time only mean something on posts and agent logs
     Component.ConditionalRender({

@@ -29,6 +29,7 @@ import LcarsMeta from "./LcarsMeta"
 import LcarsFooter from "./LcarsFooter"
 import LcarsTopics, { LcarsTopicPosts } from "./LcarsTopics"
 import { LcarsHomeHero, LcarsHomeFeed } from "./LcarsHome"
+import LcarsPageSprite from "./LcarsPageSprite"
 
 export {
   ArticleTitle,
@@ -64,4 +65,5 @@ export {
   LcarsTopicPosts,
   LcarsHomeHero,
   LcarsHomeFeed,
+  LcarsPageSprite,
 }

@@ -8,6 +8,11 @@ export function emoteSrc(slug: string | undefined, file: string): string {
   return joinSegments(pathToRoot((slug ?? "index") as FullSlug), "static/emotes", file)
 }
 
+// Pixel sprites live in quartz/static/sprites
+export function spriteSrc(slug: string | undefined, file: string): string {
+  return joinSegments(pathToRoot((slug ?? "index") as FullSlug), "static/sprites", file)
+}
+
 // Year plus day-of-year, e.g. 2026.271. Honest about being a date, still reads as a stardate.
 export function stardate(d: Date): string {
   const start = Date.UTC(d.getUTCFullYear(), 0, 0)

@@ -10,8 +10,8 @@ interface HeroOptions {
   // path relative to site root, e.g. "assets/lisa-cao.jpg"
   photo?: string
   photoAlt?: string
-  // the photo is pixel art: drop the frame and keep pixels square
-  photoPixel?: boolean
+  // the photo is a cut-out sprite: drop the photo frame
+  photoSprite?: boolean
 }
 
 // Top of the homepage: name, role, and portrait. The bio paragraph is content/index.md
@@ -28,13 +28,13 @@ export const LcarsHomeHero = ((opts: HeroOptions) => {
         <p class="lcars-hero-role">{opts.role}</p>
       </div>
       {opts.photo && (
-        <figure class={opts.photoPixel ? "lcars-portrait is-pixel" : "lcars-portrait"}>
+        <figure class={opts.photoSprite ? "lcars-portrait is-sprite" : "lcars-portrait"}>
           <img
-            class={opts.photoPixel ? "pixel" : undefined}
+            class={opts.photoSprite ? "sprite" : undefined}
             src={joinSegments(pathToRoot(fileData.slug!), opts.photo)}
             alt={opts.photoAlt ?? opts.name}
-            width={opts.photoPixel ? undefined : "560"}
-            height={opts.photoPixel ? undefined : "560"}
+            width={opts.photoSprite ? undefined : "560"}
+            height={opts.photoSprite ? undefined : "560"}
           />
         </figure>
       )}
@@ -56,6 +56,8 @@ interface PodcastPanel {
   blurb: string
   // Spotify show embed URL; the player lists the latest episodes itself
   embed: string
+  // sprite beside the player, path relative to site root
+  sprite?: string
 }
 
 interface FeedOptions {
@@ -170,6 +172,7 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
               </a>
               . {opts.podcast.blurb}
             </p>
+            <div class="lcars-onair">
             <div class="lcars-embed">
               <iframe
                 title={`${opts.podcast.title} on Spotify`}
@@ -180,6 +183,12 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
               ></iframe>
+            </div>
+            {opts.podcast.sprite && (
+              <div class="lcars-onair-art">
+                <img class="sprite" src={asset(opts.podcast.sprite)} alt="Pixel-art Lisa at a microphone, under an On Air sign" />
+              </div>
+            )}
             </div>
           </section>
         )}
@@ -200,7 +209,7 @@ export const LcarsHomeFeed = ((opts: FeedOptions) => {
                   class="lcars-agent internal"
                   href={resolveRelative(fileData.slug!, `${agent.path}/index` as FullSlug)}
                 >
-                  {agent.icon && <img class="lcars-agent-icon pixel" src={asset(agent.icon)} alt="" />}
+                  {agent.icon && <img class="lcars-agent-icon sprite" src={asset(agent.icon)} alt="" />}
                   <span class="lcars-agent-name">{agent.name}</span>
                   <span class="lcars-agent-blurb">{agent.blurb}</span>
                   <span class="lcars-readout">{entries.length} entries</span>

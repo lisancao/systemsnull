@@ -1,7 +1,7 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { formatDate, getDate } from "./Date"
 import { resolveRelative, FullSlug } from "../util/path"
-import { emoteSrc, sectionPages, stardate } from "./lcarsUtil"
+import { sectionPages, spriteSrc, stardate } from "./lcarsUtil"
 
 export interface LcarsTopic {
   // folder under the section, e.g. "neuropsychology"
@@ -37,13 +37,8 @@ export default ((opts: Options) => {
               {index?.description && <p class="lcars-panel-note">{index.description}</p>}
               {posts.length === 0 ? (
                 <p class="lcars-empty">
-                  No transmissions yet.{" "}
-                  <img
-                    class="lcars-emote"
-                    src={emoteSrc(fileData.slug, "peepoNotes.png")}
-                    alt=""
-                    aria-hidden="true"
-                  />
+                  <img class="lcars-empty-art sprite" src={spriteSrc(fileData.slug, "bored-monitors.webp")} alt="" />
+                  No transmissions yet.
                 </p>
               ) : (
                 <ol class="lcars-postlist">
@@ -87,8 +82,8 @@ export const LcarsTopicPosts = (() => {
       <div class="lcars-feed lcars-topics">
         {posts.length === 0 ? (
           <p class="lcars-empty">
-            No transmissions yet.{" "}
-            <img class="lcars-emote" src={emoteSrc(fileData.slug, "peepoNotes.png")} alt="" aria-hidden="true" />
+            <img class="lcars-empty-art sprite" src={spriteSrc(fileData.slug, "bored-monitors.webp")} alt="" />
+            No transmissions yet.
           </p>
         ) : (
           <ol class="lcars-postlist">

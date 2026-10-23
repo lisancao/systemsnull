@@ -9,8 +9,8 @@ const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   return (
     <article class="popover-hint">
       <img
-        class="lcars-404-scene pixel"
-        src={`${baseDir}static/sprites/server-meltdown.png`}
+        class="lcars-404-scene sprite"
+        src={`${baseDir}static/sprites/server-meltdown.webp`}
         alt="Pixel-art Lisa, head in hands, next to a sparking server rack"
       />
       <h1 class="article-title">404: Unable to comply</h1>
