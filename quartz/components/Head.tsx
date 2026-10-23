@@ -30,9 +30,10 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
 
-    // Url of current page
-    const socialUrl =
-      fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+    // Url of current page. Folder pages (index, posts/index) are served at their folder
+    // URL with a trailing slash, which is also what the sitemap lists; /index only redirects.
+    const pageUrl = (fileData.slug ?? "").replace(/(^|\/)index$/, "$1")
+    const socialUrl = fileData.slug === "404" ? url.toString() : url.toString() + pageUrl
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
@@ -79,7 +80,26 @@ export default (() => {
           inLanguage: cfg.locale,
           isAccessibleForFree: true,
         }
-      : undefined
+      : slug === "index"
+        ? {
+            // tells search engines this site is Lisa N. Cao's, and which profiles are hers
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: author,
+            alternateName: "Lisa Cao",
+            url: socialUrl,
+            image: `https://${cfg.baseUrl}/assets/lisa-cao.jpg`,
+            jobTitle: "Developer Relations",
+            worksFor: { "@type": "Organization", name: "Databricks" },
+            sameAs: [
+              "https://github.com/lisancao",
+              "https://www.linkedin.com/in/lisancao/",
+              "https://twitter.com/lisancao",
+              "https://medium.com/@lisancao",
+              "https://www.youtube.com/@Linux-with-Lisa",
+            ],
+          }
+        : undefined
 
     return (
       <head>
