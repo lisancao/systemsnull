@@ -1260,7 +1260,7 @@ body[data-slug="talks"] article h3 {
 
 .lcars-figure {
   max-width: 22rem;
-  margin: 1.5rem 0 2rem;
+  margin: 1.5rem auto 2rem;
 
   img {
     display: block;
@@ -1273,6 +1273,7 @@ body[data-slug="talks"] article h3 {
 
   figcaption {
     margin-top: 0.5rem;
+    text-align: center;
     font-family: var(--headerFont);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -1530,7 +1531,13 @@ img.sprite {
   float: right;
   height: 160px;
   width: auto;
-  margin: 0 0 0.5rem 0.75rem;
+  margin: 0 0 1rem 1.5rem;
+}
+
+// About opens with a long paragraph, so its sprite is bigger with room to wrap around
+body[data-slug="about"] .lcars-page-sprite {
+  height: 230px;
+  margin: 0.5rem 0 1.5rem 2.25rem;
 }
 
 .lcars-empty-art {
@@ -1550,8 +1557,10 @@ img.sprite {
   .lcars-onair-art {
     justify-self: center;
   }
-  .lcars-page-sprite {
+  .lcars-page-sprite,
+  body[data-slug="about"] .lcars-page-sprite {
     height: 90px;
+    margin: 0 0 0.75rem 1rem;
   }
 }
 
