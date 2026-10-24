@@ -1236,7 +1236,9 @@ hr,
 }
 
 .talk-type {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   margin-right: 0.5rem;
   padding: 0 0.6rem;
   border: 1.5px solid var(--sw-violet);
@@ -1247,6 +1249,13 @@ hr,
   letter-spacing: 0.08em;
   color: var(--sw-violet);
   vertical-align: 0.1em;
+}
+
+// pixel icon per talk kind (added at build by the TalkIcons transformer)
+img.talk-icon {
+  height: 1.6em;
+  width: auto;
+  margin: 0.1em 0 0.1em -0.25rem;
 }
 
 body[data-slug="talks"] article h3 {
@@ -1561,9 +1570,11 @@ body[data-slug="about"] .lcars-page-sprite {
 // whole scenes sit centred above the page title, uncropped, with room before the title
 img.lcars-page-scene {
   display: block;
-  width: 100%;
-  max-width: 560px;
+  // every scene the same height whatever its shape; narrow screens shrink it to fit
+  width: auto;
   height: auto;
+  max-height: 340px;
+  max-width: 100%;
   margin: 0.5rem auto 2.25rem;
 }
 
